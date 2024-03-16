@@ -1,0 +1,257 @@
+
+# def is_valid_position_enemy(state, position):
+#     # check if is an enemy in that position or at 1 tile away
+#     x, y = position
+
+#     for enemy in state['enemies']:
+#         enemy_pos = tuple(enemy['pos'])
+#         if position == enemy_pos:
+#             return True
+
+#         enemy_pos_bellow = (enemy_pos[0], enemy_pos[1] + 1)
+#         if position == enemy_pos_bellow:
+#             return True
+
+#         enemy_pos_left = (enemy_pos[0] - 1, enemy_pos[1])
+#         if position == enemy_pos_left:
+#             return True
+
+#         enemy_pos_right = (enemy_pos[0] + 1, enemy_pos[1])
+#         if position == enemy_pos_right:
+#             return True
+
+#         enemy_pos_up = (enemy_pos[0], enemy_pos[1] - 1)
+#         if position == enemy_pos_up:
+#             return True
+
+#     return False
+
+
+def is_valid_fygar(neighbor, closest_enemy):
+    # as posições invalidas são 4 para a esquerda do fygar e 4 para a direita
+    closest_enemy_pos = closest_enemy["pos"]
+    closest_enemy_dir = closest_enemy["dir"]
+
+    invalid_positions = []
+    for dx in range(-4, 5):
+        x, y = closest_enemy_pos[0] + dx, closest_enemy_pos[1]
+        invalid_positions.append((x, y))
+
+    # Verifica se a posição do vizinho é uma das posições inválidas
+    return (not (neighbor in invalid_positions))
+
+
+
+# def can_shoot_enemy(digdug_pos, enemy_pos, enemy_dir, next_pos, mapa, state, max_range=3):
+
+#     dx = int(enemy_pos[0]) - int(digdug_pos[0])
+#     dy = int(enemy_pos[1]) - int(digdug_pos[1])
+
+#     distance = abs(dx) + abs(dy)
+
+#     # If the enemy is out of range or not aligned, return False
+#     if distance > max_range+1 or (dx != 0 and dy != 0):
+#         return False
+
+#     # se o caminho até ao inimigo estiver bloqueado por uma pedra, não pode atirar
+#     if (mapa.get_tile(next_pos) == Tiles.STONE):
+#         return False
+
+
+#     # determine if DigDug can shoot or needs to dig
+#     # se a next_pos for um title cava
+#     return True
+
+
+
+# coisas que fiz primeiro mas nao curti
+
+    # if ((y-2>0) and mapa.get_tile([x, y-1]) == Tiles.PASSAGE):
+    #     for i in range(map_y-y-2, -1):
+    #         if(mapa.get_tile([x, i]) == Tiles.STONE):
+    #             passage.append([x, i+1])
+
+    # if ((y+2<=map_y) and mapa.get_tile([x, y+1]) == Tiles.PASSAGE):
+    #     for i in range(y+2, map_y):
+    #         if(mapa.get_tile([x, i]) == Tiles.STONE):
+    #             passage.append([x, i-1])
+
+    # if ((x-2> 0) and mapa.get_tile([x-1, y]) == Tiles.PASSAGE):
+    #     for i in range(map_x-x-2, -1):
+    #         if(mapa.get_tile([i, y]) == Tiles.STONE):
+    #             passage.append( [i+1, y])
+
+    # if ((x+2<=map_x) and mapa.get_tile([x+1, y]) == Tiles.PASSAGE):
+    #     for i in range(x+2, map_x):
+    #         if(mapa.get_tile([i, y]) == Tiles.STONE):
+    #             passage.append([i-1, y])
+
+    # if len(passage) == 0:
+    #     return closest_enemy_pos, None, None
+
+    # digdug_pos = state["digdug"]
+    # closest_option = None
+    # min_distance = float('inf')
+
+
+
+    # Já tava a dar muitos problemas, fartei me
+
+            # if self.goal and self.saved_enemy['name'] == 'Fygar' and self.passage_direction == 'Horizontal' and (self.goal == tuple(self.state['digdug'])):
+            #     self.no_goal_do_fygar = True
+
+            # if self.goal and self.no_goal_do_fygar and (self.saved_enemy['name'] == 'Fygar' and self.passage_direction == 'Horizontal'):
+            #     print("matando o fygar na horizontal")
+            #     enemy_pos = tuple(self.saved_enemy['pos'])
+            #     digdug_pos = self.state['digdug']
+            #     dx = int(enemy_pos[0]) - int(digdug_pos[0])
+            #     dy = int(enemy_pos[1]) - int(digdug_pos[1])
+
+            #     if dx >= 4 or dy >= 4:
+            #         print("Fygar fugindo para a direita 4 tiles away")
+            #         if (is_valid_position(self.state, [digdug_pos[0] + 1, digdug_pos[1]], self.state['rocks'])
+            #                     and safe_pos_enemy(self.state, self.mapa, [digdug_pos[0] + 1, digdug_pos[1]], self.digdug_dir)
+            #                 ):
+            #             self.digdug_dir = Direction.EAST
+            #             self.mapa.dig([digdug_pos[0] + 1, digdug_pos[1]])
+            #             return 'd', self.digdug_dir
+            #     if dx <= -4 or dy <= -4:
+            #         print("Fygar fugindo para a esquerda 4 tiles away")
+            #         if (is_valid_position(self.state, [digdug_pos[0] - 1, digdug_pos[1]], self.state['rocks'])
+            #                     and safe_pos_enemy(self.state, self.mapa, [digdug_pos[0] - 1, digdug_pos[1]], self.digdug_dir)
+            #                 ):
+            #             self.digdug_dir = Direction.WEST
+            #             self.mapa.dig([digdug_pos[0] - 1, digdug_pos[1]])
+            #             return 'a', self.digdug_dir
+
+            #     if get_direction(self.state["digdug"], self.saved_enemy['pos']) != self.digdug_dir:
+            #         print("Não está virado para o inimigo")
+            #         # se ele não estiver virado para o inimigo vira-se
+            #         if dy == 1 or dy < -1:
+            #             print("virando para baixo")
+            #             # se o inimigo estiver baixo dele
+            #             if (is_valid_position(self.state, [digdug_pos[0], digdug_pos[1] + 1], self.state['rocks'])
+            #                     and safe_pos_enemy(self.state, self.mapa, [digdug_pos[0], digdug_pos[1] + 1], self.digdug_dir)
+            #                     ):
+            #                 self.digdug_dir = Direction.SOUTH
+            #                 self.mapa.dig([digdug_pos[0], digdug_pos[1] + 1])
+            #                 return 's', self.digdug_dir
+            #         if dy == -1 or dy > 1:
+            #             print("virando para cima")
+            #             # se o inimigo estiver cima dele
+            #             if (is_valid_position(self.state, [digdug_pos[0], digdug_pos[1] - 1], self.state['rocks'])
+            #                     and safe_pos_enemy(self.state, self.mapa, [digdug_pos[0], digdug_pos[1] - 1], self.digdug_dir)
+            #                     ):
+            #                 self.digdug_dir = Direction.NORTH
+            #                 self.mapa.dig([digdug_pos[0], digdug_pos[1] - 1])
+            #                 return 'w', self.digdug_dir
+
+            #     return 'A', self.digdug_dir
+
+
+
+
+
+            # if (is_valid_position(state, [digdug_pos[0], digdug_pos[1] + 1], state['rocks'])
+            #             and safe_pos_enemy(state, mapa, [digdug_pos[0], digdug_pos[1] + 1], didug_dir)
+            #         ):
+            #     mapa.map[digdug_pos[0]][ digdug_pos[1] + 1] = 0
+            #     return False, 's', Direction.SOUTH
+            # if (is_valid_position(state, [digdug_pos[0], digdug_pos[1] - 1], state['rocks'])
+            #             and safe_pos_enemy(state, mapa, [digdug_pos[0], digdug_pos[1] - 1], didug_dir)
+            #         ):
+            #     mapa.map[digdug_pos[0]][ digdug_pos[1] - 1] = 0
+            #     return False, 'w', Direction.NORTH
+            # if (is_valid_position(state, [digdug_pos[0] - 1, digdug_pos[1]], state['rocks'])
+            #             and safe_pos_enemy(state, mapa, [digdug_pos[0] - 1, digdug_pos[1]], didug_dir)
+            #         ):
+            #     mapa.map[digdug_pos[0] - 1][ digdug_pos[1]] = 0
+            #     return False, 'a', Direction.WEST
+            # if (is_valid_position(state, [digdug_pos[0] + 1, digdug_pos[1]], state['rocks'])
+            #             and safe_pos_enemy(state, mapa, [digdug_pos[0] + 1, digdug_pos[1]], didug_dir)
+            #         ):
+            #     mapa.map[digdug_pos[0] + 1][ digdug_pos[1]] = 0
+            #     return False, 'd', Direction.EAST
+            # else:
+
+
+
+
+            # # fugir vemos a posição atual
+            # digdug_pos = state['digdug']
+            
+            # # foge para o lado contrario do inimigo, sem sair do mapa e sem ir contra outro inimigo
+            # if dy == 0:
+            #     if (is_valid_position(state, [digdug_pos[0], digdug_pos[1] + 1], state['rocks'])
+            #                 and safe_pos_enemy(state, mapa, [digdug_pos[0], digdug_pos[1] + 1], didug_dir)
+            #             ):
+            #         mapa.map[digdug_pos[0]][digdug_pos[1] + 1] = 0
+            #         return False, 's', Direction.SOUTH
+            #     if (is_valid_position(state, [digdug_pos[0], digdug_pos[1] - 1], state['rocks'])
+            #                 and safe_pos_enemy(state, mapa, [digdug_pos[0], digdug_pos[1] - 1], didug_dir)
+            #             ):
+            #         mapa.map[digdug_pos[0]][digdug_pos[1] - 1] = 0
+            #         return False, 'w', Direction.NORTH
+            #     if dx >= 1:
+            #         if (is_valid_position(state, [digdug_pos[0] - 1, digdug_pos[1]], state['rocks'])
+            #                 and safe_pos_enemy(state, mapa, [digdug_pos[0] - 1, digdug_pos[1]], didug_dir)
+            #             ):
+            #             mapa.map[digdug_pos[0] - 1][digdug_pos[1]] = 0
+            #             return False, 'a', Direction.WEST
+
+            #     if dx <= -1:
+            #         if (is_valid_position(state, [digdug_pos[0] + 1, digdug_pos[1]], state['rocks'])
+            #                     and safe_pos_enemy(state, mapa, [digdug_pos[0] + 1, digdug_pos[1]], didug_dir)
+            #                 ):
+            #             mapa.map[digdug_pos[0] + 1][digdug_pos[1]] = 0
+            #             return False, 'd', Direction.EAST
+
+            #     else:
+            #         mapa.map[digdug_pos[0] - 1][digdug_pos[1]] = 0
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         return False, 'a', Direction.WEST
+            # else:
+                
+            #     if (is_valid_position(state, [digdug_pos[0] - 1, digdug_pos[1]], state['rocks'])
+            #                 and safe_pos_enemy(state, mapa, [digdug_pos[0] - 1, digdug_pos[1]], didug_dir)
+            #             ):
+            #         mapa.map[digdug_pos[0] - 1][digdug_pos[1]] = 0
+            #         return False, 'a', Direction.WEST
+                
+            #     if (is_valid_position(state, [digdug_pos[0] + 1, digdug_pos[1]], state['rocks'])
+            #                 and safe_pos_enemy(state, mapa, [digdug_pos[0] + 1, digdug_pos[1]], didug_dir)
+            #             ):
+            #         mapa.map[digdug_pos[0] + 1][digdug_pos[1]] = 0
+            #         return False, 'd', Direction.EAST
+                
+            #     if dy >= 1:
+            #         if (is_valid_position(state, [digdug_pos[0], digdug_pos[1] - 1], state['rocks'])
+            #                     and safe_pos_enemy(state, mapa, [digdug_pos[0], digdug_pos[1] - 1], didug_dir)
+            #                 ):
+            #             mapa.map[digdug_pos[0]][digdug_pos[1] - 1] = 0
+            #             return False, 'w', Direction.NORTH
+            #     if dy <= -1:
+            #         if (is_valid_position(state, [digdug_pos[0], digdug_pos[1] + 1], state['rocks'])
+            #                     and safe_pos_enemy(state, mapa, [digdug_pos[0], digdug_pos[1] + 1], didug_dir)
+            #                 ):
+            #             mapa.map[digdug_pos[0]][digdug_pos[1] + 1] = 0
+            #             return False, 's', Direction.SOUTH
+
+            #     else:
+            #         mapa.map[digdug_pos[0]][digdug_pos[1] - 1] = 0
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+            #         return False, 'w', Direction.NORTH
